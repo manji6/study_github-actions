@@ -14,14 +14,22 @@ jobs:
       - run: echo "study_test1_init"
       - uses: actions/checkout@v2 #リポジトリのCheckout + Runner へDL
       - uses: actions/setup-node@v2 #nodeを利用可能に
-      - run: npm install
-      - run: gatsby build
-  study_test1_build:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: my-gatsby-project
-    steps:
-      - run: echo "study_test1_build"
-      - run: npm install
-      - run: gatsby build
+    - name: Cache dependencies
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: install
+      run: npm ci
+
+    - name: format
+      run: npm run format
+
+    - name: test
+      run: npm run test
+
+    - name: build
+      run: npm run build
