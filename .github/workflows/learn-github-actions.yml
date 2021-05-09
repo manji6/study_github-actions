@@ -33,12 +33,12 @@ jobs:
       - name: show current directory
         run: echo "$(ls -lat)"
       - name: SCP Files
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v0.1.1
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{secrets.SSH_KEY }}
-          key_path: ${{ secrets.SSH_PASSWORD }}
+          passphrase: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.PORT }}
           source: "README.md"
           target: "/home/zmukhlqv/develop_workspace/"
