@@ -8,13 +8,20 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install -g bats
       - run: bats -v
-  study_test1:
+  study_test1_init:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "study_test1"
+      - run: echo "study_test1_init"
       - uses: actions/checkout@v2 #リポジトリのCheckout + Runner へDL
       - uses: actions/setup-node@v2 #nodeを利用可能に
-      - working-directory: my-gatsby-project
       - run: npm install
       - run: gatsby build
-
+  study_test1_build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: my-gatsby-project
+    steps:
+      - run: echo "study_test1_build"
+      - run: npm install
+      - run: gatsby build
