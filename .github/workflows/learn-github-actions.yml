@@ -10,9 +10,6 @@ jobs:
       - run: bats -v
   study_test1_init:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./my-gatsby-project
     steps:
       - run: echo "study_test1_init"
       - uses: actions/checkout@v2 #リポジトリのCheckout + Runner へDL
