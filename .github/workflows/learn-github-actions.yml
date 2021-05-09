@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "study_test1_init"
+      - run: echo "$(pwd)"
       - uses: actions/checkout@v2 #リポジトリのCheckout + Runner へDL
       - uses: actions/setup-node@v2 #nodeを利用可能に
       - name: Cache dependencies
@@ -29,12 +30,15 @@ jobs:
       #   run: npm run test
       - name: build
         run: npm run build
+      - name: show current directory
+        run: echo "$(ls -lat)"
       - name: SCP Files
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{secrets.SSH_KEY }}
+          key_path: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.PORT }}
           source: "README.md"
           target: "/home/zmukhlqv/develop_workspace/"
